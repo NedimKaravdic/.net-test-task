@@ -1,0 +1,15 @@
+**/.dockerignore
+**/.git
+**/.gitignore
+**/.vs
+**/.vscode
+**/bin
+**/obj
+**/out
+**/node_modules
+**/.idea
+*.md
+*.swp
+*.sln
+.DS_Store
+Properties/launchSettings.json

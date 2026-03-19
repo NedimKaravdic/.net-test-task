@@ -1,0 +1,68 @@
+@page "/register"
+@layout DashboardLayout
+
+<PageTitle>@AppConstants.RegisterTitle | @AppConstants.AppName</PageTitle>
+
+<div class="max-w-md mx-auto mt-20">
+    <div class="bg-slate-900 border border-white/10 rounded-[2.5rem] p-8 shadow-2xl">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold tracking-tight text-white">@AppConstants.RegisterTitle</h1>
+            <p class="text-slate-400 mt-2">@AppConstants.RegisterSubTitle</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl p-4 mb-6 text-sm font-semibold flex items-center gap-2">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                @errorMessage
+            </div>
+        }
+
+        @if (identityErrors != null)
+        {
+            <div class="space-y-1 mb-6">
+                @foreach (var error in identityErrors)
+                {
+                    <div class="text-red-400 text-xs font-medium">@error.Description</div>
+                }
+            </div>
+        }
+
+        <form method="post" action="/register" @formname="register" @onsubmit="RegisterUser" class="space-y-5">
+            <AntiforgeryToken />
+            
+            <div class="space-y-2">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">@AppConstants.LabelEmail</label>
+                <div class="relative">
+                    <input type="email" name="Input.Email" class="w-full bg-slate-800 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-white outline-none focus:border-indigo-500 transition-all font-mono text-sm" placeholder="@AppConstants.PlaceholderEmail" required />
+                    <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206" /></svg>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">@AppConstants.LabelPassword</label>
+                <div class="relative">
+                    <input type="password" name="Input.Password" class="w-full bg-slate-800 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-white outline-none focus:border-indigo-500 transition-all font-mono text-sm" placeholder="@AppConstants.PlaceholderPassword" required />
+                    <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">@AppConstants.LabelConfirmPassword</label>
+                <div class="relative">
+                    <input type="password" name="Input.ConfirmPassword" class="w-full bg-slate-800 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-white outline-none focus:border-indigo-500 transition-all font-mono text-sm" placeholder="@AppConstants.PlaceholderConfirmPassword" required />
+                    <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center pt-2">
+                <span class="text-sm text-slate-500">Already have an account? </span>
+                <a href="/login" class="text-sm font-bold text-indigo-400 hover:text-indigo-300 transition-colors ml-2">@AppConstants.BtnLogin</a>
+            </div>
+
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white h-14 rounded-2xl font-bold text-lg shadow-xl shadow-indigo-600/20 transition-all active:scale-95">
+                @AppConstants.BtnRegister
+            </button>
+        </form>
+    </div>
+</div>

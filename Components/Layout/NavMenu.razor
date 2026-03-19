@@ -1,0 +1,21 @@
+@inject NavigationManager NavigationManager
+
+<div class="flex items-center gap-1 font-semibold text-sm">
+    <NavLink class="px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-slate-400" 
+             href="" Match="NavLinkMatch.All" ActiveClass="bg-white/5 text-white shadow-inner">
+        @AppConstants.BtnDashboard
+    </NavLink>
+
+    <AuthorizeView>
+        <Authorized>
+            <NavLink class="px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-slate-400" 
+                     href="trade" ActiveClass="bg-white/5 text-white shadow-inner">
+                @AppConstants.BtnTrade
+            </NavLink>
+            <NavLink class="px-4 py-2 rounded-lg hover:bg-white/10 transition-colors text-slate-400" 
+                     href="profile" ActiveClass="bg-white/5 text-white shadow-inner">
+                @AppConstants.PortfolioTitle
+            </NavLink>
+        </Authorized>
+    </AuthorizeView>
+</div>
